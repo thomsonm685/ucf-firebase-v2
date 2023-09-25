@@ -1,20 +1,16 @@
-import { View, Text, TextInput, StyleSheet, ActivityIndicator, KeyboardAvoidingView,TouchableWithoutFeedback } from 'react-native'
+import { View, Text, TextInput, StyleSheet, ActivityIndicator, KeyboardAvoidingView } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 import { FIREBASE_AUTH } from '../../firebaseConfig';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Input } from '@rneui/themed';
-import { Image } from '@rneui/themed';
+import { Button, Image, Input } from '@rneui/themed';
 import logo from '../../assets/welcome2.jpg';
-import { Button } from '@rneui/themed';
-import GLOBAL from '../global.js'
 
 
-const Login = ({navigation}) => {
+const SignUp = ({navigation}) => {
 
     useEffect(()=>{
         onAuthStateChanged(FIREBASE_AUTH, (user)=>{
-          user?navigation.navigate('Home'):'';
+          user?navigation.navigate('Announcements'):'';
         })
     }, [])
 
@@ -23,44 +19,43 @@ const Login = ({navigation}) => {
     const [loading, setLoading] = useState(false);
     const auth = FIREBASE_AUTH;
 
-    const signIn = async () => {
-        setLoading(true);
-        try{
-            const signInReq = await signInWithEmailAndPassword(auth, email, password);
-            console.log("🚀 ~ file: Login.tsx:19 ~ signIn ~ signInReq:", signInReq);
-        }
-        catch(error){
-            console.log("🚀 ~ file: Login.tsx:26 ~ signIn ~ error:", error);
-            alert('Sign In Failed: '+error.message);
-        }
-        finally{
-            setLoading(false);
-        }
-    };
-
-    // const signUp = async () => {
+    // const signIn = async () => {
     //     setLoading(true);
     //     try{
-    //         const signInReq = await createUserWithEmailAndPassword(auth, email, password);
-    //         console.log("🚀 ~ file: Login.tsx:32 ~ signUp ~ signInReq:", signInReq)
-
+    //         const signInReq = await signInWithEmailAndPassword(auth, email, password);
+    //         console.log("🚀 ~ file: Login.tsx:19 ~ signIn ~ signInReq:", signInReq);
     //     }
     //     catch(error){
-    //         console.log("🚀 ~ file: Login.tsx:36 ~ signUp ~ error:", error);
-    //         alert('Sign Up Failed: '+error.message);
+    //         console.log("🚀 ~ file: Login.tsx:26 ~ signIn ~ error:", error);
+    //         alert('Sign In Failed: '+error.message);
     //     }
     //     finally{
     //         setLoading(false);
     //     }
     // };
 
+    const signUp = async () => {
+        setLoading(true);
+        try{
+            const signInReq = await createUserWithEmailAndPassword(auth, email, password);
+            console.log("🚀 ~ file: Login.tsx:32 ~ signUp ~ signInReq:", signInReq)
+
+        }
+        catch(error){
+            console.log("🚀 ~ file: Login.tsx:36 ~ signUp ~ error:", error);
+            alert('Sign Up Failed: '+error.message);
+        }
+        finally{
+            setLoading(false);
+        }
+    };
     return (
         <View style={styles.container}>
                 <Image 
                     style={styles.logo}
                     source={logo}
                 />
-                <Text style={styles.loginHeader}>Log into your account</Text>
+                <Text style={styles.loginHeader}>Create your account</Text>
                 <KeyboardAvoidingView style={styles.loginForm}>
                     <Input style={styles.input} placeholder='Email' onChangeText={input=>setEmail(input)} value={email}/>
                     <Input style={styles.input} secureTextEntry={true} placeholder='Password' onChangeText={input=>setPassword(input)} value={password}/>
@@ -71,19 +66,19 @@ const Login = ({navigation}) => {
                     <ActivityIndicator size={"large"} color="#BC1E2E"/>
                     :
                     <>
-                    <Button style={styles.button} title="Sign in" disabled={email===''||password===''} onPress={signIn}/>
+                    <Button style={styles.button} title="Sign up" disabled={email===''||password===''} onPress={SignUp}/>
                     </>
                     }
                     <View style={styles.signUpText}>
-                        <Text>Don't have an account?</Text>
-                        <Text onPress={()=>navigation.navigate('Sign Up')} style={styles.signUpLink}> Sign up here</Text>
+                        <Text>Already have an account?</Text>
+                        <Text onPress={()=>navigation.navigate('Login')} style={styles.signUpLink}> Sign in here</Text>
                     </View>
                 </KeyboardAvoidingView>
         </View>
     )
 }
 
-export default Login
+export default SignUp
 
 const styles = StyleSheet.create({
     container:{

@@ -1,32 +1,116 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-
+import 'react-native-gesture-handler'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import List from './app/screens/List';
 import Details from './app/screens/Details';
-import Login from './app/screens/Login';
+import Login from './app/screens/Login'; 
+import SignUp from './app/screens/SignUp'; 
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
+import { FIREBASE_AUTH } from './firebaseConfig';
+import StartPage from './app/screens/StartPage';
+import Announcements from './app/screens/Announcements';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { ThemeProvider } from '@rneui/themed';
+import { createTheme } from '@rneui/themed/dist/config';
+import * as React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import AnswerKeys from './app/screens/Cases';
+import Cases from './app/screens/Cases';
+import AnswerKey from './app/screens/AnswerKey';
+import CaseTimers from './app/screens/CaseTimers';
+import Timer from './app/screens/Timer';
 
+const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 export default function App() {
 
-  const [authenticated,setAuthenticated] = useState(false);
+  const [authenticated,setAuthenticated] = useState(false); 
+  const [user,SetUser] = useState<User | null>(null);
+
+  // const navigate = useNavigation();
 
   useEffect(()=>{
-    onAuthStateChanged
+    onAuthStateChanged(FIREBASE_AUTH, (user)=>{
+      console.log("🚀 ~ file: App.tsx:24 ~ onAuthStateChanged ~ user:", user);
+      SetUser(user);
+      console.log('USER IS TRUE:', user?true:false);
+      // user?navigation.navigate('Announcements'):navigation.navigate('Start Page');
+    })
   }, [])
 
+  const theme = createTheme({
+    lightColors: {
+      primary: '#BC1F2D',
+    },
+    darkColors: {
+      primary: 'blue',
+    },
+    components: {
+      Button: {
+        radius: 7,
+        size: 'lg',
+      },
+    },
+  });
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName='Details'>
-        <Stack.Screen name="My Todos" component={List} />
-        <Stack.Screen name="Details" component={Details} />
-        <Stack.Screen name="Login" component={Login} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <ThemeProvider theme={theme}>
+      <SafeAreaProvider>
+          <NavigationContainer>
+          {/* <Stack.Navigator initialRouteName={user?'Announcements':'Start Page'}>
+            <Stack.Screen name="Announcements" component={Announcements} options={{headerShown: false}} />
+            <Stack.Screen name="Start Page" component={StartPage} options={{headerShown: false}}/>
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Sign Up" component={SignUp} />
+          </Stack.Navigator> */}
+          <Tab.Navigator 
+            initialRouteName={'Home'}
+            screenOptions={({ route }) => ({
+              tabBarIcon: ({ focused, color, size }) => {
+                let iconName;
+                let rn = route.name;
+
+                if (rn === "Home") {
+                  iconName = focused ? 'home' : 'home-outline';
+
+                } else if (rn === "Answer Keys") {
+                  iconName = focused ? 'list' : 'list-outline';
+                }
+                // else if (rn === "Timer") {
+                //   iconName = focused ? 'list' : 'list-outline';
+                // }
+
+                // You can return any component that you like here!
+                return <Ionicons name={iconName} size={size} color={'#BC1F2D'} />;
+              },
+              tabBarLabelStyle:{color:'#BC1F2D', paddingBottom:3},
+              activeTintColor: '#BC1F2D',
+              inactiveTintColor: 'grey',
+              style: { padding: 10, height: 70}
+            }
+          )}>
+
+            <Tab.Screen name={"Home"} component={Announcements} options={{headerShown: false}}/>
+            <Tab.Screen name={"Answer Keys"} component={Cases} options={{headerShown: false}}/>
+            <Tab.Screen name={"Case Timers"} component={CaseTimers} options={{headerShown: false}}/>
+            <Tab.Screen name={"Timer"} component={Timer}/>
+
+            <Tab.Screen name={"Answer Key"} component={AnswerKey}/>
+            {/* <Tab.Screen name={"Details"} component={Details} /> */}
+            <Tab.Screen name={"Start Page"} user={user} component={StartPage} options={{headerShown: false}}/>
+            <Tab.Screen name={"Login"} component={Login} options={{headerShown: false, tabBarStyle: {display:'none'}}}/>
+            <Tab.Screen name={"Sign Up"} component={SignUp} options={{headerShown: false, tabBarStyle: {display:'none'}}}/>
+            {/* tabBarStyle: {display:'none'} */}
+
+          </Tab.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </ThemeProvider>
   );
 }
 

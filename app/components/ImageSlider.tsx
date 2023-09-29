@@ -3,10 +3,10 @@ import Carousel from 'react-native-reanimated-carousel';
 import * as React from 'react';
 import { Card } from '@rneui/themed';
 
-const width = Dimensions.get('window').width-60;
+const width = (Dimensions.get('window').width-60) > 700 ? 650 : Dimensions.get('window').width-60;
 
 function ImageSlider({images}) {
-    const width = Dimensions.get('window').width-60;
+    // const width = (Dimensions.get('window').width-60) > 700 ? 650 : Dimensions.get('window').width-60;
 
 
   return (
@@ -20,13 +20,14 @@ function ImageSlider({images}) {
         scrollAnimationDuration={1000}
         onSnapToItem={(index) => console.log('current index:', index)}
         renderItem={({item}) => (
-
-            <Card.Image
+            <View>
+                <Card.Image
                 style={styles.image}
                 source={{
                 uri:item.url,
                 }}
             />
+            </View>
         )}
         />
 
@@ -40,10 +41,12 @@ const styles = StyleSheet.create({
         shadowOffset: {width: -2, height: 4},
         shadowOpacity: 0.2,
         shadowRadius: 3,
+        maxWidth: 700,
+        width: '100%'
     },
     image: {
-        width: '100%',
-        height: '100%',
+        width: width,
+        height: width,
         // height: width*1,
         objectFit: 'contain'
     }

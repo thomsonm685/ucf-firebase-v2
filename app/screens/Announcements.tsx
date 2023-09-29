@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, ActivityIndicator } from 'react-native'
+import { View, Text, ScrollView, ActivityIndicator, StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { FIREBASE_AUTH } from '../../firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -23,7 +23,7 @@ const Announcements = ({navigation}) => {
   const loadInitial = async () => {
     setLoading(true);
     try{
-      const fetchAnnouncements = await fetch('https://4a4da62e9f24.ngrok.app/api/announcements').then(d=>d.json());
+      const fetchAnnouncements = await fetch('https://875c6f1d4760.ngrok.app/api/announcements').then(d=>d.json());
       // console.log("🚀 ~ file: Announcements.tsx:17 ~ loadInitial ~ fetchAnnouncements:", fetchAnnouncements);
       setAnnouncements(fetchAnnouncements.data.announcements);
       setLoading(false);
@@ -42,9 +42,9 @@ const Announcements = ({navigation}) => {
   }, [])
 
   return (
-    <View style={{marginBottom:50}}>
+    <View style={{flex:1, overflow:'hidden'}}>
       <ScreenTitle title="ANNOUNCEMENTS"/>
-      <ScrollView style={{height:'90%'}}>
+      <ScrollView  contentContainerStyle={styles.scrollView}>
         {loading?
         <View style={{height:500, display:'flex', justifyContent:'center', alignItems:'center'}}>
           <ActivityIndicator size={"large"} color="#BC1E2E"/>
@@ -61,4 +61,16 @@ const Announcements = ({navigation}) => {
   )
 }
 
-export default Announcements
+export default Announcements;
+
+
+const styles = StyleSheet.create({
+  scrollView:{
+    // height:'90%',
+    display: 'flex',
+    // justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    paddingBottom:50
+  },
+})

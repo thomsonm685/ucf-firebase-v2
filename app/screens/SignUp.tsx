@@ -4,13 +4,26 @@ import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWith
 import { FIREBASE_AUTH } from '../../firebaseConfig';
 import { Button, Image, Input } from '@rneui/themed';
 import logo from '../../assets/welcome2.jpg';
-
+import { addDoc, collection, deleteDoc, doc, getDoc, onSnapshot, updateDoc } from 'firebase/firestore'
+import { FIRESTORE_DB } from '../../firebaseConfig'
 
 const SignUp = ({navigation}) => {
 
     useEffect(()=>{
-        onAuthStateChanged(FIREBASE_AUTH, (user)=>{
-          user?navigation.navigate('Announcements'):'';
+        onAuthStateChanged(FIREBASE_AUTH, async (user)=>{
+            if(user){
+                console.log("🚀 ~ file: SignUp.tsx:15 ~ onAuthStateChanged ~ user:", user);
+                console.log("🚀 ~ file: SignUp.tsx:16 ~ onAuthStateChanged ~ user.uid:", user.uid)
+                const userFromDb = await getDoc(doc(FIRESTORE_DB, "users", user.uid))
+                console.log("🚀 ~ file: SignUp.tsx:18 ~ onAuthStateChanged ~ userFromDb:", userFromDb);
+                if(!userFromDb){
+                    console.log('no user from db!');
+                    await addDoc(collection(FIRESTORE_DB, 'users'), {
+                        times: []
+                    });
+                }
+                navigation.navigate('Announcements');
+            }
         })
     }, [])
 

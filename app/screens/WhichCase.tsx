@@ -6,37 +6,26 @@ import { WebView } from 'react-native-webview';
 // import fs from 'fs';
 // import frameStyles from '../../assets/formFrame.css'
 import formFrameStyles from '../../assets/formFrameStyles';
+import ScreenTitle from '../components/ScreenTitle';
 
-const AnswerKey = ({navigation, route}) => {
+const WhichCase = ({navigation}) => {
 
-    console.log("🚀 ~ file: AnswerKey.tsx:11 ~ AnswerKey ~ Platform.OS:", Platform.OS)
-  console.log('AHHHHHII')
-  const {objective} = route.params;
-  console.log("🚀 ~ file: AnswerKey.tsx:12 ~ AnswerKey ~ objective:", objective);
+
   const [loading, setLoading] = useState(false);
-  const [srcDoc, setSrcDoc] = useState(null);
+  const [formId, setFormId] = useState(false);
 
-
-  // const appendFormTest = async () => {  
-  //   const formSourceReq = await fetch('https://api.jotform.com/form/193535797748176/source?apikey=f2499e61ca51b029d77282c75d0fc892').then(d=>d.json());
-  //   const formHtmlString = formSourceReq.content;
-  //   // const parser = new DOMParser();
-  //   // const formHTML = parser.parseFromString(formHtmlString,'text/html');
-  //   document.querySelector('#theForm').innerHTML = formHtmlString.replace('\\"', '');
-  // }
  
   const loadInitial = async () => {
     setLoading(true);
     try{
-      const fetchFormRes = await fetch('https://875c6f1d4760.ngrok.app/api/forms/'+objective.jotformId).then(d=>d.json());
-      console.log("🚀 ~ file: AnswerKey.tsx:29 ~ loadInitial ~ fetchFormRes:", fetchFormRes);
-      setSrcDoc(fetchFormRes.data.form.srcDoc);
+      const fetchSettingsRes = await fetch('https://875c6f1d4760.ngrok.app/api/settings').then(d=>d.json());
+      console.log("🚀 ~ file: WhichCase.tsx:22 ~ loadInitial ~ fetchSettingsRes:", fetchSettingsRes)
+      setFormId(fetchSettingsRes.data.settings.forms.whichCase.formId);
       setLoading(false);
     }
     catch(e){
-      console.log('ERROR in fetchAnnouncements:', e); 
+      console.log('ERROR in loadInitial:', e); 
       setLoading(false);
-
     }
   }
 
@@ -57,6 +46,7 @@ const AnswerKey = ({navigation, route}) => {
 
   return (
     <View style={{marginBottom:50, width: '100%', height: '100%'}}>
+      <ScreenTitle title="WHICH CASE"/>
 
 
       {/* {Platform.OS==="web"?
@@ -74,7 +64,7 @@ const AnswerKey = ({navigation, route}) => {
       {Platform.OS==="web"?
         // <object data="https://form.jotform.com/193535797748176" width="400" height="300" type="text/html"/>
       <iframe srcDoc={`
-      <script type="text/javascript" src="https://form.jotform.com/jsform/193535797748176"></script>
+      <script type="text/javascript" src="https://form.jotform.com/jsform/${formId}"></script>
       <script>
       var myIframe = document.querySelector('iframe');
       myIframe.style.display='none';
@@ -93,12 +83,12 @@ const AnswerKey = ({navigation, route}) => {
         javaScriptEnabled 
         originWhitelist={['*']}
         source={{ html: `
-        <script type="text/javascript" src="https://form.jotform.com/jsform/193535797748176"></script>
+        <script type="text/javascript" src="https://form.jotform.com/jsform/${formId}"></script>
         <script>
         var myIframe = document.querySelector('iframe');
         myIframe.style.display='none';
         myIframe.addEventListener("load", function() {
-          let newStyles = document.querySelector('iframe').contentDocument.createElement('style');
+          let newStyles = document.querySelectorAll('iframe')[0].contentDocument.createElement('style');
           newStyles.innerHTML ='${formFrameStyles.replaceAll('\n', '')}';
           document.querySelectorAll('iframe')[0].contentDocument.querySelector('body').appendChild(newStyles);
           myIframe.style.display='block';
@@ -117,11 +107,5 @@ const AnswerKey = ({navigation, route}) => {
   )
 }
 
-// setTimeout(()=>{
-//   // alert('HIII HERE');
-//   let newStyles = document.querySelectorAll('iframe')[0].contentDocument.createElement('style');
-//   newStyles.innerHTML ='${formFrameStyles.replaceAll('\n', '')}';
-//   document.querySelectorAll('iframe')[0].contentDocument.querySelector('body').appendChild(newStyles);
-// }, 2000)
 
-export default AnswerKey
+export default WhichCase;

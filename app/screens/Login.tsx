@@ -8,13 +8,29 @@ import { Image } from '@rneui/themed';
 import logo from '../../assets/welcome2.jpg';
 import { Button } from '@rneui/themed';
 import GLOBAL from '../global.js'
-
+import { addDoc, collection, deleteDoc, doc, getDoc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore'
+import { FIRESTORE_DB } from '../../firebaseConfig'
 
 const Login = ({navigation}) => {
 
+    // useEffect(()=>{
+    //     onAuthStateChanged(FIREBASE_AUTH, (user)=>{
+    //       user?navigation.navigate('Home'):'';
+    //     })
+    // }, [])
+
     useEffect(()=>{
-        onAuthStateChanged(FIREBASE_AUTH, (user)=>{
-          user?navigation.navigate('Home'):'';
+        onAuthStateChanged(FIREBASE_AUTH, async (user)=>{
+            if(user){
+                const userFromDb = await (await getDoc(doc(FIRESTORE_DB, "users", user.uid))).data();
+                if(!userFromDb){
+                    console.log('no user from db!');
+                    await addDoc(collection(FIRESTORE_DB, 'users'), {
+                        times: []
+                    });
+                }
+                navigation.navigate('Announcements');
+            }
         })
     }, [])
 
@@ -56,6 +72,10 @@ const Login = ({navigation}) => {
 
     return (
         <View style={styles.container}>
+                              <Button 
+        title="Sign Out"
+        onPress={()=>FIREBASE_AUTH.signOut()}
+        />
                 <Image 
                     style={styles.logo}
                     source={logo}

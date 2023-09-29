@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, ActivityIndicator } from 'react-native'
+import { View, Text, ScrollView, ActivityIndicator, StyleSheet, FlatList, Dimensions } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { FIREBASE_AUTH } from '../../firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -9,6 +9,9 @@ import Announcement from '../components/Announcement';
 import Case from '../components/Case';
 
 const Cases = ({navigation}) => {
+
+  const cardRows = (Dimensions.get('window').width) < 500 ? 2 : 3;
+
 
   const [cases, setCases] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -24,7 +27,7 @@ const Cases = ({navigation}) => {
   const loadInitial = async () => {
     setLoading(true);
     try{
-      const fetchCases = await fetch('https://4a4da62e9f24.ngrok.app/api/cases').then(d=>d.json());
+      const fetchCases = await fetch('https://875c6f1d4760.ngrok.app/api/cases').then(d=>d.json());
       // console.log("🚀 ~ file: Announcements.tsx:17 ~ loadInitial ~ fetchAnnouncements:", fetchAnnouncements);
       setCases(fetchCases.data.cases);
       setLoading(false);
@@ -43,22 +46,37 @@ const Cases = ({navigation}) => {
 
   return (
     <View style={{marginBottom:50}}>
-      <ScreenTitle title="CASES"/>
-      <ScrollView style={{height:'90%'}}>
+      <ScreenTitle title="ANSWER KEYS"/>
+      <Text style={styles.subheading}>Choose your case below:</Text>
+      <View>
         {loading?
         <View style={{height:500, display:'flex', justifyContent:'center', alignItems:'center'}}>
           <ActivityIndicator size={"large"} color="#BC1E2E"/>
         </View>
         :    
-        <View>
-          {cases.map(thisCase=>(
+        <FlatList horizontal={false} numColumns={cardRows}
+          data={cases}
+          renderItem={(thisCase) => <Case key={thisCase._id} item={thisCase} navigation={navigation} />}
+          keyExtractor={item => item._id}
+        >
+          {/* {cases.map(thisCase=>(
             <Case key={thisCase._id} thisCase={thisCase} navigation={navigation} />
-          ))}
-        </View>                      
+          ))} */}
+        </FlatList>                      
         }
-      </ScrollView>
+      </View>
     </View>
   )
 }
 
 export default Cases
+
+const styles = StyleSheet.create({
+  subheading:{
+    textAlign:'center',
+    color: '#BC1F2D',
+    fontSize: 15,
+    margin: 10,
+    fontWeight: 500
+  },
+})

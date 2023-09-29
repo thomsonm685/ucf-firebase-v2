@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "ucf-hybrid",
-    "slug": "ucf-hybrid",
+    "slug": "ucf",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,16 +15,24 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "unsolved.case.files"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "unsolved.case.files"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "3e6fa836-a780-4b51-a417-4143bd3c9599"
+      }
+    },
+    "owner": "michaelbuildsapps"
   }
 }

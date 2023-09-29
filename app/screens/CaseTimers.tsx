@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, ActivityIndicator } from 'react-native'
+import { View, Text, ScrollView, ActivityIndicator, FlatList, StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { FIREBASE_AUTH } from '../../firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -9,6 +9,8 @@ import Announcement from '../components/Announcement';
 import Case from '../components/Case';
 
 const CaseTimers = ({navigation}) => {
+  const cardRows = (Dimensions.get('window').width) < 500 ? 2 : 3;
+  const windowWidth =  Dimensions.get('window').width;
 
   const [cases, setCases] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -24,7 +26,7 @@ const CaseTimers = ({navigation}) => {
   const loadInitial = async () => {
     setLoading(true);
     try{
-      const fetchCases = await fetch('https://4a4da62e9f24.ngrok.app/api/cases').then(d=>d.json());
+      const fetchCases = await fetch('https://875c6f1d4760.ngrok.app/api/cases').then(d=>d.json());
       // console.log("🚀 ~ file: Announcements.tsx:17 ~ loadInitial ~ fetchAnnouncements:", fetchAnnouncements);
       setCases(fetchCases.data.cases);
       setLoading(false);
@@ -42,27 +44,72 @@ const CaseTimers = ({navigation}) => {
   }, [])
 
   return (
+    // <View style={{marginBottom:50}}>
+    //   <ScreenTitle title="TIMERS"/>
+    //   <ScrollView style={{height:'90%'}}>
+    //     {loading?
+    //     <View style={{height:500, display:'flex', justifyContent:'center', alignItems:'center'}}>
+    //       <ActivityIndicator size={"large"} color="#BC1E2E"/>
+    //     </View>
+    //     :    
+    //     <View>
+    //     {cases.map(thisCase=>(
+    //         <ListItem>
+    //             <Text >Case:</Text>
+    //             <Text>{thisCase.title}</Text>
+    //             <Button size='sm' title={'Timer'} onPress={()=>navigation.navigate('Timer', {state:thisCase})}></Button>
+    //         </ListItem>
+    //     ))}
+    //     </View>                      
+    //     }
+    //   </ScrollView> 
+    // </View>
     <View style={{marginBottom:50}}>
       <ScreenTitle title="TIMERS"/>
-      <ScrollView style={{height:'90%'}}>
+      <Text style={styles.subheading}>Choose the case to time:</Text>
+      <View style={{height:'90%'}}>
         {loading?
         <View style={{height:500, display:'flex', justifyContent:'center', alignItems:'center'}}>
           <ActivityIndicator size={"large"} color="#BC1E2E"/>
         </View>
         :    
-        <View>
-        {cases.map(thisCase=>(
-            <ListItem>
-                <Text >Case:</Text>
-                <Text>{thisCase.title}</Text>
-                <Button size='sm' title={'Timer'} onPress={()=>navigation.navigate('Timer', {state:thisCase})}></Button>
-            </ListItem>
-        ))}
-        </View>                      
+        <FlatList horizontal={false} numColumns={cardRows}
+          data={cases}
+          renderItem={({item}) => {
+            return(
+            <TouchableOpacity  style={{width: windowWidth < 500?'50%':'33%'}} onPress={()=>navigation.navigate('Case Timer', {thisCase:item})}>
+              <Card>
+                <Card.Image
+                  source={{
+                    uri: item.image,
+                  }}
+                  style={{objectFit:'contain', opacity: .8}}
+                />
+                <Card.Title>{item.title}</Card.Title>
+              </Card>
+              </TouchableOpacity>
+            )
+          }}
+          keyExtractor={item => item._id}
+        >
+          {/* {cases.map(thisCase=>(
+            <Case key={thisCase._id} thisCase={thisCase} navigation={navigation} />
+          ))} */}
+        </FlatList>                      
         }
-      </ScrollView>
+      </View>
     </View>
   )
 }
 
 export default CaseTimers
+
+const styles = StyleSheet.create({
+  subheading:{
+    textAlign:'center',
+    color: '#BC1F2D',
+    fontSize: 15,
+    margin: 10,
+    fontWeight: 500
+  },
+})

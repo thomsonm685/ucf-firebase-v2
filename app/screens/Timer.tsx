@@ -93,7 +93,7 @@ const Timer = ({navigation, route}) => {
       <Button style={styles.button} title="Complete Case" onPress={saveTime}/>
       <Text style={styles.subheading}>Your previous times:</Text>
       <View style={{width:'100%'}}>
-        {userData.times.slice().reverse().map(time=>(
+        {userData?.times?.slice().reverse().map(time=>(
           <ListItem bottomDivider topDivider containerStyle={styles.historicTime}>
             <View style={styles.historicTime}>
               <Text style={{marginBottom:10}}><Text style={{fontWeight:'500'}}>Time: </Text>{new Date(time.totalTime * 1000).toISOString().slice(11, 19)}</Text>

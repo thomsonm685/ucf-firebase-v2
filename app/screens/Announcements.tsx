@@ -43,6 +43,10 @@ const Announcements = ({navigation}) => {
 
   return (
     <View style={{flex:1, overflow:'hidden'}}>
+                                    {/* <Button 
+        title="Sign Out"
+        onPress={()=>FIREBASE_AUTH.signOut()}
+        /> */}
       <ScreenTitle title="ANNOUNCEMENTS"/>
       <ScrollView  contentContainerStyle={styles.scrollView}>
         {loading?

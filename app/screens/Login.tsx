@@ -29,7 +29,7 @@ const Login = ({navigation}) => {
                         times: []
                     });
                 }
-                navigation.navigate('Announcements');
+                navigation.navigate('Home');
             }
         })
     }, [])
@@ -72,10 +72,10 @@ const Login = ({navigation}) => {
 
     return (
         <View style={styles.container}>
-                              <Button 
+                              {/* <Button 
         title="Sign Out"
         onPress={()=>FIREBASE_AUTH.signOut()}
-        />
+        /> */}
                 <Image 
                     style={styles.logo}
                     source={logo}

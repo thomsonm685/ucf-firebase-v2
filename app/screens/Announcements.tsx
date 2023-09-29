@@ -25,7 +25,7 @@ const Announcements = ({navigation}) => {
     try{
       const fetchAnnouncements = await fetch('https://875c6f1d4760.ngrok.app/api/announcements').then(d=>d.json());
       // console.log("🚀 ~ file: Announcements.tsx:17 ~ loadInitial ~ fetchAnnouncements:", fetchAnnouncements);
-      setAnnouncements(fetchAnnouncements.data.announcements);
+      setAnnouncements(fetchAnnouncements.data.announcements); 
       setLoading(false);
     }
     catch(e){

@@ -22,7 +22,7 @@ const SignUp = ({navigation}) => {
                         times: []
                     });
                 }
-                navigation.navigate('Announcements');
+                navigation.navigate('Home');
             }
         })
     }, [])
@@ -47,7 +47,7 @@ const SignUp = ({navigation}) => {
     //     }
     // };
 
-    const signUp = async () => {
+    const signUpUser = async () => {
         setLoading(true);
         try{
             const signInReq = await createUserWithEmailAndPassword(auth, email, password);
@@ -56,7 +56,7 @@ const SignUp = ({navigation}) => {
         }
         catch(error){
             console.log("🚀 ~ file: Login.tsx:36 ~ signUp ~ error:", error);
-            alert('Sign Up Failed: '+error.message);
+            alert('Sign Up Failed: '+ error.message);
         }
         finally{
             setLoading(false);
@@ -79,7 +79,7 @@ const SignUp = ({navigation}) => {
                     <ActivityIndicator size={"large"} color="#BC1E2E"/>
                     :
                     <>
-                    <Button style={styles.button} title="Sign up" disabled={email===''||password===''} onPress={SignUp}/>
+                    <Button style={styles.button} title="Sign up" disabled={email===''||password===''} onPress={signUpUser}/>
                     </>
                     }
                     <View style={styles.signUpText}>

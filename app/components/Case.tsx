@@ -45,7 +45,7 @@ console.log("🚀 ~ file: Case.tsx:7 ~ Case ~ navigation:", navigation)
               <Button 
                   key={objective._id}
                   type='outline'
-                  title="ASDBAGL ALKSSA"
+                  title={objective.title}
                   onPress={()=>{
                       toggleOverlay();
                       navigation.navigate('Answer Key',{objective});

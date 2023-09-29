@@ -47,11 +47,11 @@ const Timer = ({navigation, route}) => {
   }
 
   const saveTime = async () => {
-    // await setDoc(doc(FIRESTORE_DB, "users", FIREBASE_AUTH.currentUser.uid), {times:[...userData.times, {
-    //     caseId:thisCase._id,
-    //     date: new Date(),
-    //     totalTime: totalTime
-    // }]});
+    await setDoc(doc(FIRESTORE_DB, "users", FIREBASE_AUTH.currentUser.uid), {times:[...(userData?.times?userData.times:[]), {
+        caseId:thisCase._id,
+        date: new Date(),
+        totalTime: totalTime
+    }]});
     makeItRain();
   }
   useEffect(()=>{

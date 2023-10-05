@@ -33,6 +33,12 @@
         "projectId": "3e6fa836-a780-4b51-a417-4143bd3c9599"
       }
     },
-    "owner": "michaelbuildsapps"
+    "owner": "michaelbuildsapps",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/3e6fa836-a780-4b51-a417-4143bd3c9599"
+    }
   }
 }

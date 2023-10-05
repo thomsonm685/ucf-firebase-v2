@@ -18,7 +18,7 @@ const SaveTens = ({navigation}) => {
   const loadInitial = async () => {
     setLoading(true);
     try{
-      const fetchSettingsRes = await fetch('https://875c6f1d4760.ngrok.app/api/settings').then(d=>d.json());
+      const fetchSettingsRes = await fetch('https://2bcea1442efb.ngrok.app/api/settings').then(d=>d.json());
       console.log("🚀 ~ file: saveTens.tsx:22 ~ loadInitial ~ fetchSettingsRes:", fetchSettingsRes)
       setFormId(fetchSettingsRes.data.settings.forms.saveTens.formId);
       setLoading(false);

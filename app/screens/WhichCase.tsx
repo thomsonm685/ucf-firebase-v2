@@ -18,7 +18,7 @@ const WhichCase = ({navigation}) => {
   const loadInitial = async () => {
     setLoading(true);
     try{
-      const fetchSettingsRes = await fetch('https://875c6f1d4760.ngrok.app/api/settings').then(d=>d.json());
+      const fetchSettingsRes = await fetch('https://2bcea1442efb.ngrok.app/api/settings').then(d=>d.json());
       console.log("🚀 ~ file: WhichCase.tsx:22 ~ loadInitial ~ fetchSettingsRes:", fetchSettingsRes)
       setFormId(fetchSettingsRes.data.settings.forms.whichCase.formId);
       setLoading(false);
@@ -95,11 +95,6 @@ const WhichCase = ({navigation}) => {
         });
         </script>
         `}}
-        // source={{ html: `<iframe id="theFrame" /><script>document.querySelector("#theFrame").setAttribute('srcDoc',"${encodeURI(srcDoc)}")</script>`}}
-        // source={{ html: ` 
-        // <object data="https://form.jotform.com/193535797748176" frameBorder="0" scrolling="no" width="100%" height="100%" type="text/html"/>
-        // <script></script>
-        // `}}
       />}
 {/* frameBorder="0" scrolling="no" width="100%" height="100%" */}
 

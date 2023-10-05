@@ -23,7 +23,7 @@ const Announcements = ({navigation}) => {
   const loadInitial = async () => {
     setLoading(true);
     try{
-      const fetchAnnouncements = await fetch('https://875c6f1d4760.ngrok.app/api/announcements').then(d=>d.json());
+      const fetchAnnouncements = await fetch('https://2bcea1442efb.ngrok.app/api/announcements').then(d=>d.json());
       // console.log("🚀 ~ file: Announcements.tsx:17 ~ loadInitial ~ fetchAnnouncements:", fetchAnnouncements);
       setAnnouncements(fetchAnnouncements.data.announcements); 
       setLoading(false);
@@ -43,10 +43,10 @@ const Announcements = ({navigation}) => {
 
   return (
     <View style={{flex:1, overflow:'hidden'}}>
-                                    {/* <Button 
+                                    <Button 
         title="Sign Out"
         onPress={()=>FIREBASE_AUTH.signOut()}
-        /> */}
+        />
       <ScreenTitle title="ANNOUNCEMENTS"/>
       <ScrollView  contentContainerStyle={styles.scrollView}>
         {loading?

@@ -27,7 +27,7 @@ const Cases = ({navigation}) => {
   const loadInitial = async () => {
     setLoading(true);
     try{
-      const fetchCases = await fetch('https://2bcea1442efb.ngrok.app/api/cases').then(d=>d.json());
+      const fetchCases = await fetch('https://ea17845a6787.ngrok.app/api/cases').then(d=>d.json());
       // console.log("🚀 ~ file: Announcements.tsx:17 ~ loadInitial ~ fetchAnnouncements:", fetchAnnouncements);
       setCases(fetchCases.data.cases);
       setLoading(false);
@@ -46,7 +46,7 @@ const Cases = ({navigation}) => {
 
   return (
     <View style={{marginBottom:50}}>
-      <ScreenTitle title="ANSWER KEYS"/>
+      <ScreenTitle navigation={navigation} title="ANSWER KEYS"/>
       <Text style={styles.subheading}>Choose your case below:</Text>
       <View>
         {loading?

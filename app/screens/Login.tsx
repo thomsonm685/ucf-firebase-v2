@@ -54,6 +54,11 @@ const Login = ({navigation}) => {
         }
     };
 
+    // const resetPassword = async () => {
+    //     await sendPasswordResetEmail(FIREBASE_AUTH, email);
+    //     console.log("🚀 ~ file: Profile.tsx:49 ~ resetPassword ~ thingy:", thingy)
+    // };
+
     // const signUp = async () => {
     //     setLoading(true);
     //     try{

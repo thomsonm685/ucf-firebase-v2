@@ -29,7 +29,7 @@ const AnswerKey = ({navigation, route}) => {
   const loadInitial = async () => {
     setLoading(true);
     try{
-      const fetchFormRes = await fetch('https://2bcea1442efb.ngrok.app/api/forms/'+objective.jotformId).then(d=>d.json());
+      const fetchFormRes = await fetch('https://ea17845a6787.ngrok.app/api/forms/'+objective.jotformId).then(d=>d.json());
       console.log("🚀 ~ file: AnswerKey.tsx:29 ~ loadInitial ~ fetchFormRes:", fetchFormRes);
       setSrcDoc(fetchFormRes.data.form.srcDoc);
       setLoading(false);

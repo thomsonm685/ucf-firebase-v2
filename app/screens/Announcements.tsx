@@ -2,10 +2,11 @@ import { View, Text, ScrollView, ActivityIndicator, StyleSheet } from 'react-nat
 import React, { useEffect, useState } from 'react'
 import { FIREBASE_AUTH } from '../../firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
-import { Button, Card } from '@rneui/themed';
+import { Button, Card, Header } from '@rneui/themed';
 import ScreenTitle from '../components/ScreenTitle'; 
 import ImageSlider from '../components/ImageSlider';
 import Announcement from '../components/Announcement';
+import { DrawerActions } from '@react-navigation/native';
 
 const Announcements = ({navigation}) => {
 
@@ -23,7 +24,7 @@ const Announcements = ({navigation}) => {
   const loadInitial = async () => {
     setLoading(true);
     try{
-      const fetchAnnouncements = await fetch('https://2bcea1442efb.ngrok.app/api/announcements').then(d=>d.json());
+      const fetchAnnouncements = await fetch('https://ea17845a6787.ngrok.app/api/announcements').then(d=>d.json());
       // console.log("🚀 ~ file: Announcements.tsx:17 ~ loadInitial ~ fetchAnnouncements:", fetchAnnouncements);
       setAnnouncements(fetchAnnouncements.data.announcements); 
       setLoading(false);
@@ -43,11 +44,15 @@ const Announcements = ({navigation}) => {
 
   return (
     <View style={{flex:1, overflow:'hidden'}}>
-                                    <Button 
+                                    {/* <Button 
         title="Sign Out"
         onPress={()=>FIREBASE_AUTH.signOut()}
-        />
-      <ScreenTitle title="ANNOUNCEMENTS"/>
+        /> */}
+        {/* <Button 
+        title="HAM B"
+        onPress={()=>navigation.dispatch(DrawerActions.openDrawer())}
+        /> */}
+      <ScreenTitle navigation={navigation} title="ANNOUNCEMENTS" navigation={navigation}/>
       <ScrollView  contentContainerStyle={styles.scrollView}>
         {loading?
         <View style={{height:500, display:'flex', justifyContent:'center', alignItems:'center'}}>

@@ -2,9 +2,9 @@ import { Text, View } from 'react-native'
 import { Card } from '@rneui/themed';
 import ImageSlider from '../components/ImageSlider';
 import { StyleSheet } from 'react-native';
+import * as WebBrowser from 'expo-web-browser';
 
 const Announcement = ({announcement}) => {
-
 
   return (
     <View style={styles.announcementContainer}>

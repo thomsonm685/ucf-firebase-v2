@@ -1,13 +1,14 @@
-import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View,Linking, Alert } from 'react-native'
 import { Button, Card, ListItem, Overlay } from '@rneui/themed';
 import ImageSlider from '../components/ImageSlider';
 import { useState } from 'react';
-
+// import { InAppBrowser } from 'react-native-inappbrowser-reborn';
+import * as WebBrowser from 'expo-web-browser';
 
 const Case = ({item, navigation}) => {
 
   const windowWidth =  Dimensions.get('window').width;
-console.log("🚀 ~ file: Case.tsx:7 ~ Case ~ navigation:", navigation)
+  console.log("🚀 ~ file: Case.tsx:7 ~ Case ~ navigation:", navigation)
 
 
     const thisCase = item.item;
@@ -18,11 +19,57 @@ console.log("🚀 ~ file: Case.tsx:7 ~ Case ~ navigation:", navigation)
     const toggleOverlay = () => {
         setVisible(!visible);
     };
-
-
-
+ 
     const [expanded,setExpanded] = useState(false);
     const [selectedObjective,setSelectedObjective] = useState(null);
+
+    const openAnswerKey = async (jotformId) => {
+      // try {
+
+        const url = 'https://form.jotform.com/jsform/'+jotformId;
+        await WebBrowser.openBrowserAsync('https://www.jotform.com/'+jotformId, {
+          controlsColor: "#BC1F2D"
+        });
+        // Linking.openURL('https://www.jotform.com/'+jotformId)
+        // if (await InAppBrowser.isAvailable()) {
+        //   const result = await InAppBrowser.open(url, {
+        //     // iOS Properties
+        //     dismissButtonStyle: 'cancel',
+        //     preferredBarTintColor: '#453AA4',
+        //     preferredControlTintColor: 'white',
+        //     readerMode: false,
+        //     animated: true,
+        //     modalPresentationStyle: 'fullScreen',
+        //     modalTransitionStyle: 'coverVertical',
+        //     modalEnabled: true,
+        //     enableBarCollapsing: false,
+        //     // Android Properties
+        //     showTitle: true,
+        //     toolbarColor: '#6200EE',
+        //     secondaryToolbarColor: 'black',
+        //     navigationBarColor: 'black',
+        //     navigationBarDividerColor: 'white',
+        //     enableUrlBarHiding: true,
+        //     enableDefaultShare: true,
+        //     forceCloseOnRedirection: false,
+        //     // Specify full animation resource identifier(package:anim/name)
+        //     // or only resource name(in case of animation bundled with app).
+        //     animations: {
+        //       startEnter: 'slide_in_right',
+        //       startExit: 'slide_out_left',
+        //       endEnter: 'slide_in_left',
+        //       endExit: 'slide_out_right'
+        //     },
+        //     headers: {
+        //       'my-custom-header': 'my custom header value'
+        //     }
+        //   })
+        // }
+        // else Linking.openURL(url)
+      // } catch (error) {
+      //   Alert.alert(error.message)
+      // }
+    }
 
 
     return (
@@ -47,8 +94,9 @@ console.log("🚀 ~ file: Case.tsx:7 ~ Case ~ navigation:", navigation)
                   type='outline'
                   title={objective.title}
                   onPress={()=>{
-                      toggleOverlay();
-                      navigation.navigate('Answer Key',{objective});
+                      // toggleOverlay();
+                      // navigation.navigate('Answer Key',{objective});
+                      openAnswerKey(objective.jotformId);
                   }}
                   style={{margin:10}}
               />

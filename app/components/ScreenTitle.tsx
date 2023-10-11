@@ -7,14 +7,23 @@ import { Input } from '@rneui/themed';
 import { Image } from '@rneui/themed';
 import logo from '../../assets/welcome2.jpg';
 import { Button } from '@rneui/themed';
+import Icon from 'react-native-vector-icons/Octicons';
+import { DrawerActions } from '@react-navigation/native';
 
 
 
-const ScreenTitle = ({title}) => {
+const ScreenTitle = ({title, navigation}) => {
 
     return (
         <View style={styles.container}>
             <Text style={styles.text}>{title}</Text>
+            <Icon 
+    name='three-bars' 
+    size={30} 
+    color='#fff' 
+    style={styles.hamburger}
+    onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+/>
         </View>
     )
 }
@@ -29,11 +38,17 @@ const styles = StyleSheet.create({
         display:'flex',
         justifyContent:'center',
         alignItems:'center',
-
+        flexDirection: "row"
     },
     text:{
         color: '#fff',
         fontWeight: '500',
         fontSize: 20
+    },
+    hamburger:{
+        position: 'absolute',
+        right: '10%',
+        top:30,
+        
     }
 })

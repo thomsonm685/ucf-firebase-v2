@@ -103,7 +103,6 @@ export default function App() {
  
             <Tab.Screen name={"Announcements"} component={Announcements} options={{headerShown: false}}/>
             <Tab.Screen name={"Answer Keys"} component={Cases} options={{headerShown: false}}/>
-            {/* <Tab.Screen name={"Timers"} component={CaseTimers} options={{headerShown: false}}/> */}
             <Tab.Screen name={"Which Case"} component={WhichCase} options={{headerShown: false}}/>
           </Tab.Navigator>
     );

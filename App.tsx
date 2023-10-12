@@ -36,6 +36,7 @@ export default function App() {
 
   const [authenticated,setAuthenticated] = useState(false); 
   const [user,SetUser] = useState<User | null>(null);
+  // const [c,SetUser] = useState(null);
 
   // const navigate = useNavigation();
 
@@ -102,7 +103,7 @@ export default function App() {
 
             <Tab.Screen name={"Announcements"} component={Announcements} options={{headerShown: false}}/>
             <Tab.Screen name={"Answer Keys"} component={Cases} options={{headerShown: false}}/>
-            <Tab.Screen name={"Timers"} component={CaseTimers} options={{headerShown: false}}/>
+            {/* <Tab.Screen name={"Timers"} component={CaseTimers} options={{headerShown: false}}/> */}
             <Tab.Screen name={"Which Case"} component={WhichCase} options={{headerShown: false}}/>
           </Tab.Navigator>
     );

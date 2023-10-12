@@ -27,7 +27,7 @@ const Cases = ({navigation}) => {
   const loadInitial = async () => {
     setLoading(true);
     try{
-      const fetchCases = await fetch('https://ea17845a6787.ngrok.app/api/cases').then(d=>d.json());
+      const fetchCases = await fetch('https://bd8aca769674.ngrok.app/api/cases').then(d=>d.json());
       // console.log("🚀 ~ file: Announcements.tsx:17 ~ loadInitial ~ fetchAnnouncements:", fetchAnnouncements);
       setCases(fetchCases.data.cases);
       setLoading(false);

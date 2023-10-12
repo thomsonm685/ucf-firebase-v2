@@ -100,7 +100,7 @@ export default function App() {
               style: { padding: 10, height: 70}
             }
           )}>
-
+ 
             <Tab.Screen name={"Announcements"} component={Announcements} options={{headerShown: false}}/>
             <Tab.Screen name={"Answer Keys"} component={Cases} options={{headerShown: false}}/>
             {/* <Tab.Screen name={"Timers"} component={CaseTimers} options={{headerShown: false}}/> */}

@@ -63,7 +63,7 @@ const Announcements = ({navigation}) => {
           {announcements.map(announcement=>(
             <Announcement key={announcement._id} announcement={announcement} />
           ))}
-        </View>                      
+        </View>                       
         }
       </ScrollView>
     </View>

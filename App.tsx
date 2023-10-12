@@ -28,6 +28,9 @@ import WhichCase from './app/screens/WhichCase';
 import SaveTens from './app/screens/SaveTens';
 import * as WebBrowser from 'expo-web-browser';
 import Profile from './app/screens/Profile';
+import MiniCases from './app/screens/MiniCases';
+import Discounts from './app/screens/Discounts';
+import BuyCases from './app/screens/BuyCases';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -45,6 +48,10 @@ export default function App() {
       console.log("🚀 ~ file: App.tsx:24 ~ onAuthStateChanged ~ user:", user);
       SetUser(user);
       console.log('USER IS TRUE:', user?true:false);
+      const getSettingsRes = await fetch('https://c44f9f63345e.ngrok.app/api/settings').then(d=>d.json());
+      // if(getSettingsRes.data.settings.appErrorAlert.active){
+      //     alert(getSettingsRes.data.settings.appErrorAlert.message);
+      // }
       // user?navigation.navigate('Announcements'):navigation.navigate('Start Page');
     })
   }, [])
@@ -101,9 +108,17 @@ export default function App() {
             }
           )}>
  
-            <Tab.Screen name={"Announcements"} component={Announcements} options={{headerShown: false}}/>
-            <Tab.Screen name={"Answer Keys"} component={Cases} options={{headerShown: false}}/>
-            <Tab.Screen name={"Which Case"} component={WhichCase} options={{headerShown: false}}/>
+            <Tab.Screen name={"Home"} component={Announcements} options={{headerShown: false}}/>
+            <Tab.Screen name={"Answers"} component={Cases} options={{headerShown: false}}/>
+            <Tab.Screen   name={"Shop"} 
+              listeners={({ navigation }) => ({
+                tabPress: e => {
+                  e.preventDefault();
+                  WebBrowser.openBrowserAsync('https://www.unsolvedcasefiles.com/cases.html');
+                }
+              })}
+              component={Cases} />
+            <Tab.Screen name={"Free"} component={MiniCases} options={{headerShown: false}}/>
           </Tab.Navigator>
     );
   }
@@ -115,16 +130,20 @@ export default function App() {
     return (
     <Drawer.Navigator id="MyDrawer" initialRouteName="Home">
       <Drawer.Screen name="Answer Keys" component={Cases} />
-      <Drawer.Screen name="Announcements" component={Announcements} />
+      <Drawer.Screen name="Social" component={Announcements} />
+      <Drawer.Screen name="Discounts" component={Discounts} />
+      <Drawer.Screen name="Open Cases" component={BuyCases} />
     </Drawer.Navigator>
-    );
-  }
+    ); 
+  } 
 
   function CustomDrawerContent(props) {
     return (
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
         <DrawerItem label="Help & Support" onPress={()=>WebBrowser.openBrowserAsync('https://www.unsolvedcasefiles.com/support.html', {controlsColor: "#BC1F2D"})} />
+        <DrawerItem label="Share & Save" onPress={()=>WebBrowser.openBrowserAsync('https://www.unsolvedcasefiles.com/save-ten.html', {controlsColor: "#BC1F2D"})} />
+        <DrawerItem label="Which Case" onPress={()=>WebBrowser.openBrowserAsync('https://form.jotform.com/193535797748176', {controlsColor: "#BC1F2D"})} />
       </DrawerContentScrollView>
     );
   }
@@ -149,12 +168,14 @@ export default function App() {
             <Stack.Screen name="Sign Up" component={SignUp} /> */}
 
             <Stack.Screen name="Case Timer" component={Timer} />
+            
             <Stack.Screen name="Answer Key" component={AnswerKey}/>
 
             <Stack.Screen name="Login" component={Login} options={{headerShown: false, drawerItemStyle: {display:'none'}}}  />
             <Stack.Screen name="Sign Up" component={SignUp} options={{headerShown: false, drawerItemStyle: {display:'none'}}} />
             <Stack.Screen name="Start Page" component={StartPage} options={{headerShown: false, drawerItemStyle: {display:'none'}}} />
-            <Stack.Screen name="Share & Save" component={SaveTens} options={{headerShown: false}} />
+            <Drawer.Screen name="Discounts" component={Discounts} options={{headerShown: false}} />
+            <Drawer.Screen name="Open Cases" component={BuyCases} options={{headerShown: false}} />
             <Stack.Screen name="Profile Settings" component={Profile} options={{headerShown: false}} />
 
           </Drawer.Navigator>

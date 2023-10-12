@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, ActivityIndicator, StyleSheet, Alert } from 'react-native'
+import { View, Text, ScrollView, ActivityIndicator, StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { FIREBASE_AUTH } from '../../firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -8,7 +8,7 @@ import ImageSlider from '../components/ImageSlider';
 import Announcement from '../components/Announcement';
 import { DrawerActions } from '@react-navigation/native';
 
-const Announcements = ({navigation}) => {
+const Discounts = ({navigation}) => {
 
   const [announcements, setAnnouncements] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -26,11 +26,7 @@ const Announcements = ({navigation}) => {
     try{
       const fetchAnnouncements = await fetch('https://c44f9f63345e.ngrok.app/api/announcements').then(d=>d.json());
       // console.log("🚀 ~ file: Announcements.tsx:17 ~ loadInitial ~ fetchAnnouncements:", fetchAnnouncements);
-      setAnnouncements(fetchAnnouncements.data.announcements.filter(c=>c.tag==="announcement")); 
-      const getSettingsRes = await fetch('https://c44f9f63345e.ngrok.app/api/settings').then(d=>d.json());
-      if(getSettingsRes.data.settings.appErrorAlert.active){
-          alert(getSettingsRes.data.settings.appErrorAlert.message);
-      }
+      setAnnouncements(fetchAnnouncements.data.announcements.filter(c=>c.tag==="discount")); 
       setLoading(false);
     }
     catch(e){
@@ -56,7 +52,7 @@ const Announcements = ({navigation}) => {
         title="HAM B"
         onPress={()=>navigation.dispatch(DrawerActions.openDrawer())}
         /> */}
-      <ScreenTitle navigation={navigation} title="ANNOUNCEMENTS" navigation={navigation}/>
+      <ScreenTitle navigation={navigation} title="DISCOUNTS" navigation={navigation}/>
       <ScrollView  contentContainerStyle={styles.scrollView}>
         {loading?
         <View style={{height:500, display:'flex', justifyContent:'center', alignItems:'center'}}>
@@ -74,7 +70,7 @@ const Announcements = ({navigation}) => {
   )
 }
 
-export default Announcements;
+export default Discounts;
 
 
 const styles = StyleSheet.create({

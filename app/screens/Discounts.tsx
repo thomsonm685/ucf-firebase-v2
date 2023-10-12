@@ -24,7 +24,7 @@ const Discounts = ({navigation}) => {
   const loadInitial = async () => {
     setLoading(true);
     try{
-      const fetchAnnouncements = await fetch('https://c44f9f63345e.ngrok.app/api/announcements').then(d=>d.json());
+      const fetchAnnouncements = await fetch('https://dc46eb2d1961.ngrok.app/api/announcements').then(d=>d.json());
       // console.log("🚀 ~ file: Announcements.tsx:17 ~ loadInitial ~ fetchAnnouncements:", fetchAnnouncements);
       setAnnouncements(fetchAnnouncements.data.announcements.filter(c=>c.tag==="discount")); 
       setLoading(false);

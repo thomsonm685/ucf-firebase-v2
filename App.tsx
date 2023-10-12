@@ -31,6 +31,8 @@ import Profile from './app/screens/Profile';
 import MiniCases from './app/screens/MiniCases';
 import Discounts from './app/screens/Discounts';
 import BuyCases from './app/screens/BuyCases';
+import NoApp from './app/screens/NoApp';
+import Socials from './app/screens/Socials';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -39,6 +41,8 @@ export default function App() {
 
   const [authenticated,setAuthenticated] = useState(false); 
   const [user,SetUser] = useState<User | null>(null);
+  const [hideApp,setHideApp] = useState(false);
+  const [appAlertMsg,setAppAlertMsg] = useState(false);
   // const [c,SetUser] = useState(null);
 
   // const navigate = useNavigation();
@@ -48,13 +52,36 @@ export default function App() {
       console.log("🚀 ~ file: App.tsx:24 ~ onAuthStateChanged ~ user:", user);
       SetUser(user);
       console.log('USER IS TRUE:', user?true:false);
-      const getSettingsRes = await fetch('https://c44f9f63345e.ngrok.app/api/settings').then(d=>d.json());
+      // const getSettingsRes = await fetch('https://dc46eb2d1961.ngrok.app/api/settings').then(d=>d.json());
       // if(getSettingsRes.data.settings.appErrorAlert.active){
       //     alert(getSettingsRes.data.settings.appErrorAlert.message);
       // }
       // user?navigation.navigate('Announcements'):navigation.navigate('Start Page');
-    })
-  }, [])
+    });
+    loadSettings();
+  }, []);
+
+  // useEffect(()=>{
+  //   alert('HI')
+  //   loadSettings();
+  // })
+
+  const loadSettings = async () => {
+    try{
+      const getSettingsRes = await fetch('https://dc46eb2d1961.ngrok.app/api/settings').then(d=>d.json());
+      console.log("🚀 ~ file: App.tsx:64 ~ loadSettings ~ getSettingsRes:", getSettingsRes)
+      if(getSettingsRes.data.settings.appErrorAlert.active){
+          alert(getSettingsRes.data.settings.appErrorAlert.message);
+          setAppAlertMsg(getSettingsRes.data.settings.appErrorAlert.message);
+      }
+      if(getSettingsRes.data.settings.hideApp){
+        setHideApp(true);
+      }
+    }
+    catch(e){
+      console.log("APP[ERROR] in loadSettings:", e)
+    }
+  }
 
   const theme = createTheme({
     lightColors: {
@@ -70,6 +97,22 @@ export default function App() {
       },
     },
   });
+
+  if(hideApp) return(
+    <ThemeProvider theme={theme}> 
+      <SafeAreaProvider>
+          <NavigationContainer>
+          {/* <Stack.Navigator initialRouteName={user?'Announcements':'Start Page'}> */}
+          <Stack.Navigator 
+            initialRouteName={'NoApp'}
+          >
+            <Stack.Screen name="Home"  children={()=><NoApp message={appAlertMsg}/>} options={{headerShown: false}} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </ThemeProvider>
+  );
+  
 
   function HomeTabs() {
     return (
@@ -167,9 +210,9 @@ export default function App() {
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Sign Up" component={SignUp} /> */}
 
-            <Stack.Screen name="Case Timer" component={Timer} />
+            {/* <Stack.Screen name="Case Timer" component={Timer} /> */}
             
-            <Stack.Screen name="Answer Key" component={AnswerKey}/>
+            {/* <Stack.Screen name="Answer Key" component={AnswerKey}/> */}
 
             <Stack.Screen name="Login" component={Login} options={{headerShown: false, drawerItemStyle: {display:'none'}}}  />
             <Stack.Screen name="Sign Up" component={SignUp} options={{headerShown: false, drawerItemStyle: {display:'none'}}} />
@@ -177,7 +220,7 @@ export default function App() {
             <Drawer.Screen name="Discounts" component={Discounts} options={{headerShown: false}} />
             <Drawer.Screen name="Open Cases" component={BuyCases} options={{headerShown: false}} />
             <Stack.Screen name="Profile Settings" component={Profile} options={{headerShown: false}} />
-
+            <Stack.Screen name="Socials" component={Socials} options={{headerShown: false}} />
           </Drawer.Navigator>
           {/* <Tab.Navigator 
             initialRouteName={'Home'}

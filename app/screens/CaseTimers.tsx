@@ -26,7 +26,7 @@ const CaseTimers = ({navigation}) => {
   const loadInitial = async () => {
     setLoading(true);
     try{
-      const fetchCases = await fetch('https://c44f9f63345e.ngrok.app/api/cases').then(d=>d.json());
+      const fetchCases = await fetch('https://dc46eb2d1961.ngrok.app/api/cases').then(d=>d.json());
       // console.log("🚀 ~ file: Announcements.tsx:17 ~ loadInitial ~ fetchAnnouncements:", fetchAnnouncements);
       setCases(fetchCases.data.cases);
       setLoading(false);

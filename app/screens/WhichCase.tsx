@@ -18,7 +18,7 @@ const WhichCase = ({navigation}) => {
   const loadInitial = async () => {
     setLoading(true);
     try{
-      const fetchSettingsRes = await fetch('https://dc46eb2d1961.ngrok.app/api/settings').then(d=>d.json());
+      const fetchSettingsRes = await fetch('https://f62247e0dfc9.ngrok.app/api/settings').then(d=>d.json());
       console.log("🚀 ~ file: WhichCase.tsx:22 ~ loadInitial ~ fetchSettingsRes:", fetchSettingsRes)
       setFormId(fetchSettingsRes.data.settings.forms.whichCase.formId);
       setLoading(false);

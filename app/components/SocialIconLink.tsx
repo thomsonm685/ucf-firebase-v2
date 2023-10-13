@@ -1,11 +1,13 @@
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View,Linking, Alert } from 'react-native'
-import { Button, Card, ListItem, Overlay } from '@rneui/themed';
+import { Button, Card, Icon, ListItem, Overlay } from '@rneui/themed';
 import ImageSlider from '../components/ImageSlider';
 import { useState } from 'react';
 // import { InAppBrowser } from 'react-native-inappbrowser-reborn';
 import * as WebBrowser from 'expo-web-browser';
 import { SocialIcon, SocialIconProps } from '@rneui/themed';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5';
+// import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { logoTi } from '@fortawesome/free-solid-svg-icons';
 
 const windowWidth =  Dimensions.get('window').width;
 
@@ -13,7 +15,7 @@ const SocialIconLink = ({url, icon}) => {
 
     // const {url, icon} = item.item;
     console.log('url:',url);
-    console.log('icon:',icon);
+    console.log('icon:',icon);``
 
 
     const openSocialLink = async () => {
@@ -26,16 +28,20 @@ const SocialIconLink = ({url, icon}) => {
     return (
         <TouchableOpacity  style={styles.iconContainer} onPress={openSocialLink} key={icon}>
         {icon==="tiktok"?
-        <></>
-        // <Ionicons
-        // name='tiktok'
-        // size={50}
-        // onPress={openSocialLink}
-        //  />
+        <SocialIcon
+        type={"tiktok"}
+        iconType='font-awesome-5'
+        key={icon}
+        iconSize={40}
+        onPress={openSocialLink}
+        />
+        // <View style={{backgroundColor:"#fff"}}>
+        //   <FontAwesomeIcon name={"tiktok"}  size={50}  /> 
+        // </View>
         :
         <SocialIcon
         type={icon}
-        iconType={'font-awesome'}
+        iconType='font-awesome'
         key={icon}
         iconSize={40}
         onPress={openSocialLink}

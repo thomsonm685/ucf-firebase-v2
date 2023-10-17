@@ -7,7 +7,6 @@ import * as WebBrowser from 'expo-web-browser';
 import { SocialIcon, SocialIconProps } from '@rneui/themed';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5';
 // import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { logoTi } from '@fortawesome/free-solid-svg-icons';
 
 const windowWidth =  Dimensions.get('window').width;
 
@@ -27,12 +26,11 @@ const SocialIconLink = ({url, icon}) => {
 
     return (
         <TouchableOpacity  style={styles.iconContainer} onPress={openSocialLink} key={icon}>
-        {icon==="tiktok"?
-        <SocialIcon
-        type={"tiktok"}
-        iconType='font-awesome-5'
+        {icon==="twitter"?
+        <FontAwesomeIcon
+        name='twitter-x'
         key={icon}
-        iconSize={40}
+        size={40}
         onPress={openSocialLink}
         />
         // <View style={{backgroundColor:"#fff"}}>
@@ -41,7 +39,7 @@ const SocialIconLink = ({url, icon}) => {
         :
         <SocialIcon
         type={icon}
-        iconType='font-awesome'
+        iconType='font-awesome-5'
         key={icon}
         iconSize={40}
         onPress={openSocialLink}

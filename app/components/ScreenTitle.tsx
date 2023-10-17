@@ -16,14 +16,14 @@ const ScreenTitle = ({title, navigation}) => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>{title}</Text>
-            <Icon 
+                        <Icon 
     name='three-bars' 
-    size={30} 
+    size={25} 
     color='#fff' 
     style={styles.hamburger}
     onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
 />
+            <Text style={styles.text}>{title}</Text>
         </View>
     )
 }
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     container:{
         backgroundColor: '#BC1F2D',
         height: 70,
-        paddingTop: 20,
+        paddingTop: 30,
         display:'flex',
         justifyContent:'center',
         alignItems:'center',
@@ -47,8 +47,8 @@ const styles = StyleSheet.create({
     },
     hamburger:{
         position: 'absolute',
-        right: '10%',
-        top:30,
+        left: '15%',
+        top:38,
         
     }
 })

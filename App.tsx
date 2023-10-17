@@ -34,6 +34,13 @@ import BuyCases from './app/screens/BuyCases';
 import NoApp from './app/screens/NoApp';
 import Socials from './app/screens/Socials';
 
+import home from './assets/home.png';
+import help from './assets/help.png';
+import freebies from './assets/freebies.png';
+import shop from './assets/shop.png';
+import answers from './assets/answers.png';
+
+
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -43,8 +50,13 @@ export default function App() {
   const [user,SetUser] = useState<User | null>(null);
   const [hideApp,setHideApp] = useState(false);
   const [appAlertMsg,setAppAlertMsg] = useState(false);
-  // const [c,SetUser] = useState(null);
+  const [shopUrl,setShopUrl] = useState(null);
+  const [supportUrl,setSupportUrl] = useState(null);
+  const [whichCaseUrl,setWhichCaseUrl] = useState(null);
+  const [saveTenUrl,setSaveTenUrl] = useState(null);
 
+  // const [c,SetUser] = useState(null);
+ 
   // const navigate = useNavigation();
 
   useEffect(()=>{
@@ -52,7 +64,7 @@ export default function App() {
       console.log("🚀 ~ file: App.tsx:24 ~ onAuthStateChanged ~ user:", user);
       SetUser(user);
       console.log('USER IS TRUE:', user?true:false);
-      // const getSettingsRes = await fetch('https://f62247e0dfc9.ngrok.app/api/settings').then(d=>d.json());
+      // const getSettingsRes = await fetch('https://5312e5690e7d.ngrok.app/api/settings').then(d=>d.json());
       // if(getSettingsRes.data.settings.appErrorAlert.active){
       //     alert(getSettingsRes.data.settings.appErrorAlert.message);
       // }
@@ -68,8 +80,12 @@ export default function App() {
 
   const loadSettings = async () => {
     try{
-      const getSettingsRes = await fetch('https://f62247e0dfc9.ngrok.app/api/settings').then(d=>d.json());
+      const getSettingsRes = await fetch('https://5312e5690e7d.ngrok.app/api/settings').then(d=>d.json());
       console.log("🚀 ~ file: App.tsx:64 ~ loadSettings ~ getSettingsRes:", getSettingsRes)
+      setSupportUrl(getSettingsRes.data.settings.iframeUrls.support);
+      setSaveTenUrl(getSettingsRes.data.settings.iframeUrls.saveTens);
+      setWhichCaseUrl(getSettingsRes.data.settings.iframeUrls.whichCase);
+      setShopUrl(getSettingsRes.data.settings.iframeUrls.shop);
       if(getSettingsRes.data.settings.appErrorAlert.active){
           alert(getSettingsRes.data.settings.appErrorAlert.message);
           setAppAlertMsg(getSettingsRes.data.settings.appErrorAlert.message);
@@ -157,11 +173,19 @@ export default function App() {
               listeners={({ navigation }) => ({
                 tabPress: e => {
                   e.preventDefault();
-                  WebBrowser.openBrowserAsync('https://www.unsolvedcasefiles.com/cases.html');
+                  WebBrowser.openBrowserAsync(shopUrl, {showTitle:false});
                 }
               })}
               component={Cases} />
             <Tab.Screen name={"Free"} component={MiniCases} options={{headerShown: false}}/>
+            <Tab.Screen   name={"Help"} 
+              listeners={({ navigation }) => ({
+                tabPress: e => {
+                  e.preventDefault();
+                  WebBrowser.openBrowserAsync(supportUrl, {showTitle:false});
+                }
+              })}
+              component={Cases} />
           </Tab.Navigator>
     );
   }
@@ -184,12 +208,21 @@ export default function App() {
     return (
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
-        <DrawerItem label="Help & Support" onPress={()=>WebBrowser.openBrowserAsync('https://www.unsolvedcasefiles.com/support.html', {controlsColor: "#BC1F2D"})} />
-        <DrawerItem label="Share & Save" onPress={()=>WebBrowser.openBrowserAsync('https://www.unsolvedcasefiles.com/save-ten.html', {controlsColor: "#BC1F2D"})} />
-        <DrawerItem label="Which Case" onPress={()=>WebBrowser.openBrowserAsync('https://form.jotform.com/193535797748176', {controlsColor: "#BC1F2D"})} />
+        <DrawerItem label="Help & Support" onPress={()=>WebBrowser.openBrowserAsync(supportUrl, {controlsColor: "#BC1F2D"})} />
+        <DrawerItem label="Share & Save" onPress={()=>WebBrowser.openBrowserAsync(saveTenUrl, {controlsColor: "#BC1F2D"})} />
+        <DrawerItem label="Which Case" onPress={()=>WebBrowser.openBrowserAsync(whichCaseUrl, {controlsColor: "#BC1F2D"})} />
       </DrawerContentScrollView>
     );
   }
+
+  // function ShopDrawerLink(props) {
+  //   return (
+  //     <DrawerContentScrollView {...props}>
+  //       <DrawerItemList {...props} />
+  //       <DrawerItem label="Shop" onPress={()=>WebBrowser.openBrowserAsync(shopUrl, {controlsColor: "#BC1F2D"})} />
+  //     </DrawerContentScrollView>
+  //   );
+  // }
 
   return (
     <ThemeProvider theme={theme}> 
@@ -213,10 +246,11 @@ export default function App() {
             {/* <Stack.Screen name="Case Timer" component={Timer} /> */}
             
             {/* <Stack.Screen name="Answer Key" component={AnswerKey}/> */}
-
+            
             <Stack.Screen name="Login" component={Login} options={{headerShown: false, drawerItemStyle: {display:'none'}}}  />
             <Stack.Screen name="Sign Up" component={SignUp} options={{headerShown: false, drawerItemStyle: {display:'none'}}} />
             <Stack.Screen name="Start Page" component={StartPage} options={{headerShown: false, drawerItemStyle: {display:'none'}}} />
+            <Drawer.Screen name="Answer Keys" component={AnswerKeys} options={{headerShown: false}} />      
             <Drawer.Screen name="Discounts" component={Discounts} options={{headerShown: false}} />
             <Drawer.Screen name="Open Cases" component={BuyCases} options={{headerShown: false}} />
             <Stack.Screen name="Profile Settings" component={Profile} options={{headerShown: false}} />

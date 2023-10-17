@@ -80,7 +80,7 @@ const Case = ({item, navigation}) => {
             source={{
               uri: thisCase.image,
             }}
-            style={{objectFit:'contain', opacity: .8}}
+            style={{objectFit:'contain'}}
           />
           <Card.Title style={{paddingTop: 10}}>{thisCase.title}</Card.Title>
         </Card> 

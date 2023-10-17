@@ -12,15 +12,15 @@ const WhichCase = ({navigation}) => {
 
 
   const [loading, setLoading] = useState(false);
-  const [formId, setFormId] = useState(false);
+  const [formUrl, setFormUrl] = useState(false);
 
  
   const loadInitial = async () => {
     setLoading(true);
     try{
-      const fetchSettingsRes = await fetch('https://f62247e0dfc9.ngrok.app/api/settings').then(d=>d.json());
+      const fetchSettingsRes = await fetch('https://5312e5690e7d.ngrok.app/api/settings').then(d=>d.json());
       console.log("🚀 ~ file: WhichCase.tsx:22 ~ loadInitial ~ fetchSettingsRes:", fetchSettingsRes)
-      setFormId(fetchSettingsRes.data.settings.forms.whichCase.formId);
+      setFormUrl(fetchSettingsRes.data.settings.iframeUrls.whichCase);
       setLoading(false);
     }
     catch(e){
@@ -64,7 +64,7 @@ const WhichCase = ({navigation}) => {
       {Platform.OS==="web"?
         // <object data="https://form.jotform.com/193535797748176" width="400" height="300" type="text/html"/>
       <iframe srcDoc={`
-      <script type="text/javascript" src="https://form.jotform.com/jsform/${formId}"></script>
+      <script type="text/javascript" src="${formUrl}"></script>
       <script>
       var myIframe = document.querySelector('iframe');
       myIframe.style.display='none';
@@ -83,7 +83,7 @@ const WhichCase = ({navigation}) => {
         javaScriptEnabled 
         originWhitelist={['*']}
         source={{ html: `
-        <script type="text/javascript" src="https://form.jotform.com/jsform/${formId}"></script>
+        <script type="text/javascript" src="${formUrl}"></script>
         <script>
         var myIframe = document.querySelector('iframe');
         myIframe.style.display='none';

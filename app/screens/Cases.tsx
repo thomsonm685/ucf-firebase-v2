@@ -27,7 +27,7 @@ const Cases = ({navigation}) => {
   const loadInitial = async () => {
     setLoading(true);
     try{
-      const fetchCases = await fetch('https://f62247e0dfc9.ngrok.app/api/cases').then(d=>d.json());
+      const fetchCases = await fetch('https://5312e5690e7d.ngrok.app/api/cases').then(d=>d.json());
       // console.log("🚀 ~ file: Announcements.tsx:17 ~ loadInitial ~ fetchAnnouncements:", fetchAnnouncements);
       setCases(fetchCases.data.cases);
       setLoading(false);
@@ -55,6 +55,7 @@ const Cases = ({navigation}) => {
         </View>
         :    
         <FlatList horizontal={false} numColumns={cardRows}
+        style={styles.listContainerStyle}
           data={cases}
           renderItem={(thisCase) => <Case key={thisCase._id} item={thisCase} navigation={navigation} />}
           keyExtractor={item => item._id}
@@ -75,8 +76,12 @@ const styles = StyleSheet.create({
   subheading:{
     textAlign:'center',
     color: '#BC1F2D',
-    fontSize: 15,
+    fontSize: 20,
     margin: 10,
     fontWeight: 500
   },
+  listContainerStyle:{
+    marginLeft:11,
+    marginRight:11,
+  }
 })

@@ -20,7 +20,7 @@ const Socials = ({navigation}) => {
   const loadInitial = async () => {
     setLoading(true);
     try{
-      const fetchSettings = await fetch('https://5312e5690e7d.ngrok.app/api/settings').then(d=>d.json());
+      const fetchSettings = await fetch('https://ucf-server-2c6f04fbd850.herokuapp.com/api/settings').then(d=>d.json());
       setSocials(fetchSettings.data.settings.socials);
       setLoading(false);
     }

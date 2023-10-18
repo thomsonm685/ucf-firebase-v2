@@ -26,24 +26,23 @@ const SocialIconLink = ({url, icon}) => {
 
     return (
         <TouchableOpacity  style={styles.iconContainer} onPress={openSocialLink} key={icon}>
-        {icon==="twitter"?
-        <FontAwesomeIcon
-        name='twitter-x'
-        key={icon}
-        size={40}
-        onPress={openSocialLink}
-        />
+        {/* // <FontAwesomeIcon
+        // name='twitter-x'
+        // key={icon}
+        // size={40}
+        // onPress={openSocialLink}
+        // />
         // <View style={{backgroundColor:"#fff"}}>
         //   <FontAwesomeIcon name={"tiktok"}  size={50}  /> 
-        // </View>
-        :
+        // </View> */}
+        
         <SocialIcon
         type={icon}
         iconType='font-awesome-5'
         key={icon}
         iconSize={40}
         onPress={openSocialLink}
-        />}
+        />
         </TouchableOpacity >
     )
 }

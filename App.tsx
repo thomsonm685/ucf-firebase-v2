@@ -39,6 +39,7 @@ import help from './assets/help.png';
 import freebies from './assets/freebies.png';
 import shop from './assets/shop.png';
 import answers from './assets/answers.png';
+import Directory from './app/screens/Directory';
 
 
 const Tab = createBottomTabNavigator();
@@ -64,7 +65,7 @@ export default function App() {
       console.log("🚀 ~ file: App.tsx:24 ~ onAuthStateChanged ~ user:", user);
       SetUser(user);
       console.log('USER IS TRUE:', user?true:false);
-      // const getSettingsRes = await fetch('https://5312e5690e7d.ngrok.app/api/settings').then(d=>d.json());
+      // const getSettingsRes = await fetch('https://ucf-server-2c6f04fbd850.herokuapp.com/api/settings').then(d=>d.json());
       // if(getSettingsRes.data.settings.appErrorAlert.active){
       //     alert(getSettingsRes.data.settings.appErrorAlert.message);
       // }
@@ -80,7 +81,7 @@ export default function App() {
 
   const loadSettings = async () => {
     try{
-      const getSettingsRes = await fetch('https://5312e5690e7d.ngrok.app/api/settings').then(d=>d.json());
+      const getSettingsRes = await fetch('https://ucf-server-2c6f04fbd850.herokuapp.com/api/settings').then(d=>d.json());
       console.log("🚀 ~ file: App.tsx:64 ~ loadSettings ~ getSettingsRes:", getSettingsRes)
       setSupportUrl(getSettingsRes.data.settings.iframeUrls.support);
       setSaveTenUrl(getSettingsRes.data.settings.iframeUrls.saveTens);
@@ -152,6 +153,9 @@ export default function App() {
                 else if (rn === "Free") {
                   iconName = focused ? 'gift' : 'gift-outline';
                 }
+                else if (rn === "Help") {
+                  iconName = focused ? 'help-circle' : 'help-circle-outline';
+                }
 
                 // else if (rn === "Timer") {
                 //   iconName = focused ? 'list' : 'list-outline';w
@@ -167,7 +171,7 @@ export default function App() {
             }
           )}>
  
-            <Tab.Screen name={"Home"} component={Announcements} options={{headerShown: false}}/>
+            <Tab.Screen name={"Home"} component={Directory} options={{headerShown: false}}/>
             <Tab.Screen name={"Answers"} component={Cases} options={{headerShown: false}}/>
             <Tab.Screen   name={"Shop"} 
               listeners={({ navigation }) => ({
@@ -199,7 +203,7 @@ export default function App() {
       <Drawer.Screen name="Answer Keys" component={Cases} />
       <Drawer.Screen name="Social" component={Announcements} />
       <Drawer.Screen name="Discounts" component={Discounts} />
-      <Drawer.Screen name="Open Cases" component={BuyCases} />
+      <Drawer.Screen name="Freebies" component={BuyCases} />
     </Drawer.Navigator>
     ); 
   } 
@@ -208,7 +212,7 @@ export default function App() {
     return (
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
-        <DrawerItem label="Help & Support" onPress={()=>WebBrowser.openBrowserAsync(supportUrl, {controlsColor: "#BC1F2D"})} />
+        <DrawerItem label="Help" onPress={()=>WebBrowser.openBrowserAsync(supportUrl, {controlsColor: "#BC1F2D"})} />
         <DrawerItem label="Share & Save" onPress={()=>WebBrowser.openBrowserAsync(saveTenUrl, {controlsColor: "#BC1F2D"})} />
         <DrawerItem label="Which Case" onPress={()=>WebBrowser.openBrowserAsync(whichCaseUrl, {controlsColor: "#BC1F2D"})} />
       </DrawerContentScrollView>
@@ -230,7 +234,7 @@ export default function App() {
           <NavigationContainer>
           {/* <Stack.Navigator initialRouteName={user?'Announcements':'Start Page'}> */}
           <Drawer.Navigator 
-            initialRouteName={'Announcements'}
+            initialRouteName={'Home'}
             drawerContent={(props) => <CustomDrawerContent {...props} />}
           >
 
@@ -250,11 +254,14 @@ export default function App() {
             <Stack.Screen name="Login" component={Login} options={{headerShown: false, drawerItemStyle: {display:'none'}}}  />
             <Stack.Screen name="Sign Up" component={SignUp} options={{headerShown: false, drawerItemStyle: {display:'none'}}} />
             <Stack.Screen name="Start Page" component={StartPage} options={{headerShown: false, drawerItemStyle: {display:'none'}}} />
-            <Drawer.Screen name="Answer Keys" component={AnswerKeys} options={{headerShown: false}} />      
+            {/* <Drawer.Screen name="Answer Keys" component={AnswerKeys} options={{headerShown: false}} />        */}
+            <Stack.Screen name="Answer Keys" component={AnswerKeys} options={{headerShown: false}} />
+            <Drawer.Screen name="Announcements" component={Announcements} options={{headerShown: false}} />      
             <Drawer.Screen name="Discounts" component={Discounts} options={{headerShown: false}} />
-            <Drawer.Screen name="Open Cases" component={BuyCases} options={{headerShown: false}} />
-            <Stack.Screen name="Profile Settings" component={Profile} options={{headerShown: false}} />
-            <Stack.Screen name="Socials" component={Socials} options={{headerShown: false}} />
+            {/* <Drawer.Screen name="Open Cases" component={BuyCases} options={{headerShown: false}} /> */}
+            <Drawer.Screen name="Freebies" component={BuyCases} options={{headerShown: false}} />
+            <Stack.Screen name="Settings" component={Profile} options={{headerShown: false}} />
+            <Stack.Screen name="Follow Us" component={Socials} options={{headerShown: false}} />
           </Drawer.Navigator>
           {/* <Tab.Navigator 
             initialRouteName={'Home'}

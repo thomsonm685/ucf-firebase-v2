@@ -65,7 +65,7 @@ export default function App() {
       console.log("🚀 ~ file: App.tsx:24 ~ onAuthStateChanged ~ user:", user);
       SetUser(user);
       console.log('USER IS TRUE:', user?true:false);
-      // const getSettingsRes = await fetch('https://0e35c3726008.ngrok.app/api/settings').then(d=>d.json());
+      // const getSettingsRes = await fetch('https://ucf-server-2c6f04fbd850.herokuapp.com/api/settings').then(d=>d.json());
       // if(getSettingsRes.data.settings.appErrorAlert.active){
       //     alert(getSettingsRes.data.settings.appErrorAlert.message);
       // }
@@ -81,7 +81,7 @@ export default function App() {
 
   const loadSettings = async () => {
     try{
-      const getSettingsRes = await fetch('https://0e35c3726008.ngrok.app/api/settings').then(d=>d.json());
+      const getSettingsRes = await fetch('https://ucf-server-2c6f04fbd850.herokuapp.com/api/settings').then(d=>d.json());
       console.log("🚀 ~ file: App.tsx:64 ~ loadSettings ~ getSettingsRes:", getSettingsRes)
       setSupportUrl(getSettingsRes.data.settings.iframeUrls.support);
       setSaveTenUrl(getSettingsRes.data.settings.iframeUrls.saveTens);

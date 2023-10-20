@@ -18,7 +18,7 @@ const SaveTens = ({navigation}) => {
   const loadInitial = async () => {
     setLoading(true);
     try{
-      const fetchSettingsRes = await fetch('https://0e35c3726008.ngrok.app/api/settings').then(d=>d.json());
+      const fetchSettingsRes = await fetch('https://ucf-server-2c6f04fbd850.herokuapp.com/api/settings').then(d=>d.json());
       console.log("🚀 ~ file: saveTens.tsx:22 ~ loadInitial ~ fetchSettingsRes:", fetchSettingsRes)
       setFormUrl(fetchSettingsRes.data.settings.iframeUrls.saveTens);
       setLoading(false);

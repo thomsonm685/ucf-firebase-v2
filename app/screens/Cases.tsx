@@ -27,7 +27,7 @@ const Cases = ({navigation}) => {
   const loadInitial = async () => {
     setLoading(true);
     try{
-      const fetchCases = await fetch('https://ucf-server-2c6f04fbd850.herokuapp.com/api/cases').then(d=>d.json());
+      const fetchCases = await fetch('https://0e35c3726008.ngrok.app/api/cases').then(d=>d.json());
       // console.log("🚀 ~ file: Announcements.tsx:17 ~ loadInitial ~ fetchAnnouncements:", fetchAnnouncements);
       setCases(fetchCases.data.cases);
       setLoading(false);
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     color: '#BC1F2D',
     fontSize: 20,
     margin: 10,
-    fontWeight: 500
+    fontWeight: "500" 
   },
   listContainerStyle:{
     marginLeft:11,

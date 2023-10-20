@@ -20,7 +20,7 @@ const Socials = ({navigation}) => {
   const loadInitial = async () => {
     setLoading(true);
     try{
-      const fetchSettings = await fetch('https://ucf-server-2c6f04fbd850.herokuapp.com/api/settings').then(d=>d.json());
+      const fetchSettings = await fetch('https://0e35c3726008.ngrok.app/api/settings').then(d=>d.json());
       setSocials(fetchSettings.data.settings.socials);
       setLoading(false);
     }
@@ -79,6 +79,6 @@ const styles = StyleSheet.create({
         color: '#BC1F2D',
         fontSize: 15,
         margin: 10,
-        fontWeight: 500
+        fontWeight: "500"
     },
 })

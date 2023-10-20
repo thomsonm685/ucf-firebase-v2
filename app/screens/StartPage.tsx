@@ -6,6 +6,7 @@ import logo from '../../assets/welcome.jpg';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, useTheme } from '@rneui/themed';
 
+
 const StartPage = ({navigation}) => {
     const { theme, updateTheme } = useTheme();
     
@@ -15,39 +16,45 @@ const StartPage = ({navigation}) => {
     // }, [])
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={{backgroundColor:"#BC1F2D"}}>
             <View style={styles.container}>
                 <Image 
                     style={styles.logo}
                     source={logo}
                 />
-                <Button 
-                    color={'#fff'}
-                    style={styles.button}
-                    onPress={()=>navigation.navigate('Login')}
-                >   
-                    <Text style={{ color: theme.colors.primary, fontSize: 18}}>
-                        Sign In
-                    </Text>
-                </Button>
-                <Button 
-                    color={'#fff'}
-                    style={styles.button}
-                    onPress={()=>navigation.navigate('Sign Up')}
-                >   
-                    <Text style={{ color: theme.colors.primary, fontSize: 18}}>
-                        Sign Up
-                    </Text>
-                </Button>  
-                <Button 
-                    color={'#fff'}
-                    style={styles.button}
-                    onPress={()=>navigation.navigate('Details')}
-                >   
-                    <Text style={{ color: theme.colors.primary, fontSize: 18}}>
-                        Answer Keys
-                    </Text>
-                </Button>            
+                <View style={{margin:10, width: 200}}>
+                    <Button 
+                        color={'#fff'}
+                        style={styles.button}
+                        onPress={()=>navigation.navigate('Login')}
+                    >   
+                        <Text style={{ color: theme.colors.primary, fontSize: 18}}>
+                            Sign In
+                        </Text>
+                    </Button>
+                </View>
+                <View style={{margin:10,width: 200}}>
+                    <Button 
+                        color={'#fff'}
+                        style={styles.button}
+                        onPress={()=>navigation.navigate('Sign Up')}
+                    >   
+                        <Text style={{ color: theme.colors.primary, fontSize: 18}}>
+                            Sign Up
+                        </Text>
+                    </Button>  
+                </View>
+                <View style={{margin:10, width: 200}}>
+                    <Button 
+                        color={'#fff'}
+                        style={styles.button}
+                        onPress={()=>navigation.navigate('Details')}
+                    >   
+                        <Text style={{ color: theme.colors.primary, fontSize: 18}}>
+                            Answer Keys
+                        </Text>
+                    </Button>        
+                </View>    
             </View>
         </SafeAreaView>
     )
@@ -78,7 +85,7 @@ const styles = StyleSheet.create({
     },
     button:{
         width: 200,
-        margin: 10,
+        // margin: 10,
     },
 
 })

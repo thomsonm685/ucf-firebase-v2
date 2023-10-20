@@ -26,10 +26,10 @@ const AnswerKey = ({navigation, route}) => {
   //   document.querySelector('#theForm').innerHTML = formHtmlString.replace('\\"', '');
   // }
  
-  const loadInitial = async () => {
+  const loadInitial = asyn c () => {
     setLoading(true);
     try{
-      const fetchFormRes = await fetch('https://ucf-server-2c6f04fbd850.herokuapp.com/api/forms/'+objective.jotformId).then(d=>d.json());
+      const fetchFormRes = await fetch('https://0e35c3726008.ngrok.app/api/forms/'+objective.jotformId).then(d=>d.json());
       console.log("🚀 ~ file: AnswerKey.tsx:29 ~ loadInitial ~ fetchFormRes:", fetchFormRes);
       setSrcDoc(fetchFormRes.data.form.srcDoc);
       setLoading(false);

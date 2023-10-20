@@ -24,7 +24,7 @@ const BuyCases = ({navigation}) => {
   const loadInitial = async () => {
     setLoading(true);
     try{
-      const fetchAnnouncements = await fetch('https://ucf-server-2c6f04fbd850.herokuapp.com/api/announcements').then(d=>d.json());
+      const fetchAnnouncements = await fetch('https://0e35c3726008.ngrok.app/api/announcements').then(d=>d.json());
       // console.log("🚀 ~ file: Announcements.tsx:17 ~ loadInitial ~ fetchAnnouncements:", fetchAnnouncements);
       setAnnouncements(fetchAnnouncements.data.announcements.filter(c=>c.tag==="buy-a-case")); 
       setLoading(false);

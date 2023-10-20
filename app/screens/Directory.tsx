@@ -22,7 +22,7 @@ const Directory = ({navigation}) => {
   const loadInitial = async () => {
     setLoading(true);
     try{
-      const fetchHomeSettings = await fetch('https://ucf-server-2c6f04fbd850.herokuapp.com/api/directory').then(d=>d.json());
+      const fetchHomeSettings = await fetch('https://0e35c3726008.ngrok.app/api/directory').then(d=>d.json());
       console.log('fetchHomeSettings:', fetchHomeSettings)
       setBlocks(fetchHomeSettings.data.directory.blocks); 
       setHero(fetchHomeSettings.data.directory.hero); 
